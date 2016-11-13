@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import changer from './fullToShort';
+import username from './extractName';
 
 const app = express();
 app.use(cors());
@@ -16,7 +17,7 @@ app.get ('/task2A', (req,res) => {
 });
 
 app.get ('/task2B', (req,res) => {
-	let name = req.query.fullname ? req.query.fullname.replace(/\s+/g,' ').trim() : false;
+	let name = req.query.fullname ? req.query.fullname.replace(/\s{2,}/g,' ').trim() : false;
 	
 	if (!name) {
 		res.send("Invalid fullname");
@@ -48,6 +49,11 @@ app.get ('/task2B', (req,res) => {
 			}
 	}
 	res.send("Error unknown. Query: " + req.query);
+});
+
+app.get ('/task2C', (req,res) => {
+	const link = req.query.username || false;
+	res.send(username(link));
 });
 
 app.listen(3000, () => {
