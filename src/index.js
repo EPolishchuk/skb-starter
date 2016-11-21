@@ -3,8 +3,9 @@ import cors from 'cors';
 import fetch from 'node-fetch';
 import changer from './fullToShort';
 import username from './extractName';
+import hexColor from './hexcolor';
 
-/*const pcUrl = 'https://gist.githubusercontent.com/isuvorov/ce6b8d87983611482aac89f6d7bc0037/raw/pc.json';
+const pcUrl = 'https://gist.githubusercontent.com/isuvorov/ce6b8d87983611482aac89f6d7bc0037/raw/pc.json';
 
 let pc = {};
 fetch(pcUrl)
@@ -13,9 +14,7 @@ fetch(pcUrl)
   })
   .catch(err => {
     console.log('Чтото пошло не так:', err);
-  });*/
-
-let pc = {"board":{"vendor":"IBM","model":"IBM-PC S-100","cpu":{"model":"80286","hz":12000},"image":"http://www.s100computers.com/My%20System%20Pages/80286%20Board/Picture%20of%2080286%20V2%20BoardJPG.jpg","video":"http://www.s100computers.com/My%20System%20Pages/80286%20Board/80286-Demo3.mp4"},"ram":{"vendor":"CTS","volume":1048576,"pins":30},"os":"MS-DOS 1.25","floppy":0,"hdd":[{"vendor":"Samsung","size":33554432,"volume":"C:"},{"vendor":"Maxtor","size":16777216,"volume":"D:"},{"vendor":"Maxtor","size":8388608,"volume":"C:"}],"monitor":null,"length":42,"height":21,"width":54};
+  });
 
 const app = express();
 app.use(cors());
@@ -68,6 +67,11 @@ app.get ('/task2B', (req,res) => {
 app.get ('/task2C', (req,res) => {
 	const link = req.query.username || false;
 	res.send(username(link));
+});
+
+app.get ('/task2D', (req,res) => {
+	const color = req.query.color || false;
+	res.send(hexColor(color));
 });
 
 app.get ('/task3A/volumes', (req,res) => {	
